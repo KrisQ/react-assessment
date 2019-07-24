@@ -1,21 +1,17 @@
-import * as actions from "../actions";
+import * as actions from '../actions';
 
 const initialState = {
   temperatureinCelsius: null,
   temperatureinFahrenheit: null,
-  description: "",
-  locationName: ""
+  description: '',
+  locationName: ''
 };
 
 const toF = c => (c * 9) / 5 + 32;
 
 const weatherDataRecevied = (state, action) => {
   const { getWeatherForLocation } = action;
-  const {
-    description,
-    locationName,
-    temperatureinCelsius
-  } = getWeatherForLocation;
+  const { description, locationName, temperatureinCelsius } = getWeatherForLocation;
 
   return {
     temperatureinCelsius,
@@ -31,6 +27,6 @@ const handlers = {
 
 export default (state = initialState, action) => {
   const handler = handlers[action.type];
-  if (typeof handler === "undefined") return state;
+  if (typeof handler === 'undefined') return state;
   return handler(state, action);
 };

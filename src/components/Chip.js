@@ -1,5 +1,5 @@
-import Chip from "@material-ui/core/Chip";
-import { withStyles } from "@material-ui/core/styles";
+import Chip from '@material-ui/core/Chip';
+import { withStyles } from '@material-ui/core/styles';
 
 const cardStyles = theme => ({
   root: {

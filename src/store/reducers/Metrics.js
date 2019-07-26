@@ -1,17 +1,29 @@
 import * as actions from '../actions';
 
 const initialState = {
-  selectedMetrics: ['1', '2']
+  selectedMetrics: [],
+  metricsData: []
 };
 
 const metricsDataSelected = (state, action) => {
-  console.log('REDUX-STATE', state);
-  console.log('REDUX-ACTION', action);
-  return state;
+  const { selectedMetrics } = action;
+  return {
+    selectedMetrics,
+    metricsData: state.metricsData
+  };
+};
+
+const metricsDataReceived = (state, action) => {
+  const { metricsData } = action;
+  return {
+    selectedMetrics: state.selectedMetrics,
+    metricsData
+  };
 };
 
 const handlers = {
-  [actions.METRICS_DATA_SELECTED]: metricsDataSelected
+  [actions.METRICS_DATA_SELECTED]: metricsDataSelected,
+  [actions.METRICS_DATA_RECEIVED]: metricsDataReceived
 };
 
 export default (state = initialState, action) => {

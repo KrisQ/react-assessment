@@ -30,7 +30,8 @@ const MetricsSelector = () => {
   });
 
   const handleSelectChange = values => {
-    dispatch({ type: actions.METRICS_DATA_SELECTED, values });
+    const selectedMetrics = values.map(value => ({ metricName: value.value }));
+    dispatch({ type: actions.METRICS_DATA_SELECTED, selectedMetrics });
   };
 
   const { fetching, data, error } = result;

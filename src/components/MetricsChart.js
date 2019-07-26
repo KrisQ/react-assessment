@@ -1,11 +1,68 @@
-import React from 'react';
+import * as actions from '../store/actions';
+import React, { useEffect } from 'react';
+import { Provider, createClient, useQuery } from 'urql';
+import { useDispatch, useSelector } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const client = createClient({
+  url: 'https://react.eogresources.com/graphql'
+});
+
+const query = `
+query($input: [MeasurementQuery]!) {
+  getMultipleMeasurements(input: $input){
+    metric,
+    measurements {
+      metric,
+      at,
+   	 	value,
+    	unit
+    }
+  }
+}`;
+
+export default () => {
+  return (
+    <Provider value={client}>
+      <MetricsChart />
+    </Provider>
+  );
+};
 
 const MetricsChart = () => {
+  const getMetrics = state => {
+    const { selectedMetrics, metricsData } = state.metrics;
+    return {
+      selectedMetrics,
+      metricsData
+    };
+  };
+
+  const dispatch = useDispatch();
+  const { selectedMetrics: input, metricsData: metrics } = useSelector(getMetrics);
+  const [result] = useQuery({
+    query,
+    variables: {
+      input
+    }
+  });
+
+  const { fetching, data, error } = result;
+
+  useEffect(() => {
+    if (error) {
+      dispatch({ type: actions.API_ERROR, error: error.message });
+      return;
+    }
+    if (!data) return;
+    const { getMultipleMeasurements: metricsData } = data;
+    dispatch({ type: actions.METRICS_DATA_RECEIVED, metricsData });
+  }, [dispatch, data, error]);
+  if (fetching) return <CircularProgress />;
+
   return (
     <div>
       <h1>CHARTS HERE</h1>
     </div>
   );
 };
-
-export default MetricsChart;

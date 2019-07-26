@@ -8,7 +8,7 @@ import MetricsChart from './MetricsChart';
 const useStyles = makeStyles({
   card: {
     margin: '5% 10%',
-    height: '70vh'
+    height: '500px'
   }
 });
 

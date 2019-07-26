@@ -30,7 +30,10 @@ const MetricsSelector = () => {
   });
 
   const handleSelectChange = values => {
-    const selectedMetrics = values.map(value => ({ metricName: value.value }));
+    // DYNAMIC?
+    const halfHour = (60 * 60 * 1000) / 2;
+    const halfHourAgo = new Date() - halfHour;
+    const selectedMetrics = values.map(value => ({ metricName: value.value, after: halfHourAgo }));
     dispatch({ type: actions.METRICS_DATA_SELECTED, selectedMetrics });
   };
 

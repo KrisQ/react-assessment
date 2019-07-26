@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { Provider, createClient, useQuery } from 'urql';
 import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import ChartLogic from './ChartLogic';
 
 const client = createClient({
   url: 'https://react.eogresources.com/graphql'
@@ -58,11 +60,13 @@ const MetricsChart = () => {
     const { getMultipleMeasurements: metricsData } = data;
     dispatch({ type: actions.METRICS_DATA_RECEIVED, metricsData });
   }, [dispatch, data, error]);
-  if (fetching) return <CircularProgress />;
+  if (fetching) {
+    return (
+      <Grid container justify="center" align="center" spacing={0}>
+        <CircularProgress style={{ marginTop: '200px' }} />
+      </Grid>
+    );
+  }
 
-  return (
-    <div>
-      <h1>CHARTS HERE</h1>
-    </div>
-  );
+  return <ChartLogic metrics={metrics} />;
 };

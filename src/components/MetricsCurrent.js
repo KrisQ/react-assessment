@@ -47,13 +47,17 @@ const MetricsCurrent = ({ colors, names }) => {
     return (
       <Grid container justify="center" align="center" spacing={2}>
         {Object.keys(currentMetrics).map((name, i) => {
-          return (
-            <Grid key={i} item>
-              <p style={{ color: colors[i] }}>
-                {name}: {currentMetrics[name].value} {currentMetrics[name].unit}
-              </p>
-            </Grid>
-          );
+          if (names.includes(name)) {
+            return (
+              <Grid key={i} item>
+                <p style={{ color: colors[i] }}>
+                  {name}: {currentMetrics[name].value} {currentMetrics[name].unit}
+                </p>
+              </Grid>
+            );
+          } else {
+            return <span></span>;
+          }
         })}
       </Grid>
     );

@@ -34,7 +34,7 @@ const ChartLogic = ({ metrics }) => {
         <ResponsiveContainer minHeight={400} style={{ marginTop: '50px' }}>
           <LineChart data={dataArray} margin={{ top: 50, right: 20, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="name" interval={300} />
             <YAxis />
             <Tooltip />
             {names.map((name, i) => {

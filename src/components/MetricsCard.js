@@ -10,7 +10,8 @@ import { Provider } from 'urql';
 const useStyles = makeStyles({
   card: {
     margin: '5% 10%',
-    height: '500px'
+    minHeight: '500px',
+    maxHeight: '800px'
   }
 });
 

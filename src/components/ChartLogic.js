@@ -1,11 +1,10 @@
 import React from 'react';
-import { useSubscription } from 'urql';
+import MetricsCurrent from './MetricsCurrent';
 
 import {
   ResponsiveContainer,
   LineChart,
   Line,
-  Legend,
   Tooltip,
   CartesianGrid,
   XAxis,
@@ -13,9 +12,6 @@ import {
 } from 'recharts';
 
 const ChartLogic = ({ metrics }) => {
-  // NEXT
-  // DO SUBSCRIPTION
-  // TRY TO UPDATE DATA WITH IT
   if (metrics[0]) {
     const names = metrics.map(metric => metric.metric);
     const dataArray = metrics[0].measurements.map((m, metricIndex) => {
@@ -39,7 +35,6 @@ const ChartLogic = ({ metrics }) => {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Legend />
             {names.map((name, i) => {
               return (
                 <Line key={name} dot={false} type="monotone" dataKey={name} stroke={colors[i]} />
@@ -47,6 +42,7 @@ const ChartLogic = ({ metrics }) => {
             })}
           </LineChart>
         </ResponsiveContainer>
+        <MetricsCurrent colors={colors} names={names} />
       </div>
     );
   } else {

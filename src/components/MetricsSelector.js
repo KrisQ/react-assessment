@@ -16,9 +16,13 @@ const MetricsSelector = () => {
   const [result] = useQuery({
     query
   });
-  console.log(result);
 
   const handleSelectChange = values => {
+    if (!values) {
+      const selectedMetrics = [];
+      dispatch({ type: actions.METRICS_DATA_SELECTED, selectedMetrics });
+      return;
+    }
     // DYNAMIC?
     const halfHour = (60 * 60 * 1000) / 2;
     const halfHourAgo = new Date() - halfHour;

@@ -28,13 +28,10 @@ const metricsDataUpdated = (state, action) => {
   const { metricsData } = state;
   const { newMeasurements } = action;
   const newMetricsData = metricsData.map(data => {
-    if (data.metric === newMeasurements[0].metric && newMeasurements[0] !== undefined) {
-      console.log('REDUXmetricsData.metric', data);
-      console.log('REDUXnewMeasurements[0].metric', newMeasurements[0]);
-
+    if (data.metric === newMeasurements.metric && newMeasurements !== undefined) {
       return {
         metric: data.metric,
-        measurements: [...data.measurements, newMeasurements[0]]
+        measurements: [...data.measurements, newMeasurements]
       };
     }
     return {
@@ -43,10 +40,10 @@ const metricsDataUpdated = (state, action) => {
     };
   });
   const currentMetrics = state.currentMetrics;
-  currentMetrics[newMeasurements[0].metric] = {
-    name: newMeasurements[0].metric,
-    value: newMeasurements[0].value,
-    unit: newMeasurements[0].unit
+  currentMetrics[newMeasurements.metric] = {
+    name: newMeasurements.metric,
+    value: newMeasurements.value,
+    unit: newMeasurements.unit
   };
   return {
     selectedMetrics: state.selectedMetrics,

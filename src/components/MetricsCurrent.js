@@ -15,7 +15,7 @@ subscription newMeasurement {
 }`;
 
 const handleSubscription = (measurements = [], response) => {
-  return [response.newMeasurement];
+  return response.newMeasurement;
 };
 
 const MetricsCurrent = ({ colors, names }) => {
@@ -33,15 +33,13 @@ const MetricsCurrent = ({ colors, names }) => {
 
   const { currentMetrics } = useSelector(getCurrentMetrics);
 
-  console.log('currentMetrics', currentMetrics);
-
   useEffect(() => {
     if (error) {
       dispatch({ type: actions.API_ERROR, error: error.message });
       return;
     }
     if (!newMeasurements) return;
-    if (names.includes(newMeasurements[0].metric)) {
+    if (names.includes(newMeasurements.metric)) {
       dispatch({ type: actions.METRICS_DATA_UPDATED, newMeasurements });
     }
   }, [dispatch, newMeasurements, error]);
@@ -49,7 +47,6 @@ const MetricsCurrent = ({ colors, names }) => {
     return (
       <Grid container justify="center" align="center" spacing={2}>
         {Object.keys(currentMetrics).map((name, i) => {
-          console.log('newMeasurements', currentMetrics[name]);
           return (
             <Grid key={i} item>
               <p style={{ color: colors[i] }}>

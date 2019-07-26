@@ -1,14 +1,10 @@
 import * as actions from '../store/actions';
 import React, { useEffect } from 'react';
-import { Provider, createClient, useQuery } from 'urql';
+import { useQuery } from 'urql';
 import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import ChartLogic from './ChartLogic';
-
-const client = createClient({
-  url: 'https://react.eogresources.com/graphql'
-});
 
 const query = `
 query($input: [MeasurementQuery]!) {
@@ -22,14 +18,6 @@ query($input: [MeasurementQuery]!) {
     }
   }
 }`;
-
-export default () => {
-  return (
-    <Provider value={client}>
-      <MetricsChart />
-    </Provider>
-  );
-};
 
 const MetricsChart = () => {
   const getMetrics = state => {
@@ -70,3 +58,5 @@ const MetricsChart = () => {
 
   return <ChartLogic metrics={metrics} />;
 };
+
+export default MetricsChart;

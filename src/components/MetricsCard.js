@@ -4,6 +4,8 @@ import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import MetricsSelector from './MetricsSelector';
 import MetricsChart from './MetricsChart';
+import client from '../store/api';
+import { Provider } from 'urql';
 
 const useStyles = makeStyles({
   card: {
@@ -16,12 +18,14 @@ const MetricsCard = () => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <MetricsSelector />
-        <MetricsChart />
-      </CardContent>
-    </Card>
+    <Provider value={client}>
+      <Card className={classes.card}>
+        <CardContent>
+          <MetricsSelector />
+          <MetricsChart />
+        </CardContent>
+      </Card>
+    </Provider>
   );
 };
 

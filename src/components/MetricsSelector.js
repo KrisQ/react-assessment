@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react';
-import { Provider, createClient, useQuery } from 'urql';
+import { useQuery } from 'urql';
 import Select from 'react-select';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useDispatch } from 'react-redux';
 import * as actions from '../store/actions';
-
-const client = createClient({
-  url: 'https://react.eogresources.com/graphql'
-});
 
 const query = `
 query GET_METRICS {
@@ -15,19 +11,12 @@ query GET_METRICS {
 }
 `;
 
-export default () => {
-  return (
-    <Provider value={client}>
-      <MetricsSelector />
-    </Provider>
-  );
-};
-
 const MetricsSelector = () => {
   const dispatch = useDispatch();
   const [result] = useQuery({
     query
   });
+  console.log(result);
 
   const handleSelectChange = values => {
     // DYNAMIC?
@@ -59,3 +48,5 @@ const MetricsSelector = () => {
     />
   );
 };
+
+export default MetricsSelector;

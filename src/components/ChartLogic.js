@@ -20,7 +20,9 @@ const ChartLogic = ({ metrics }) => {
         name: dateObject.toLocaleTimeString()
       };
       names.forEach((name, nameIndex) => {
-        obj[metrics[nameIndex].metric] = metrics[nameIndex].measurements[metricIndex].value;
+        if (metrics[nameIndex].measurements[metricIndex] !== undefined) {
+          obj[metrics[nameIndex].metric] = metrics[nameIndex].measurements[metricIndex].value;
+        }
       });
       return obj;
     });
